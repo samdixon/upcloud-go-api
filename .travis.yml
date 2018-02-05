@@ -4,6 +4,16 @@ go:
   - 1.7
   - 1.8
   - 1.9
-before_install: go get github.com/mattn/goveralls
-script: travis_retry go test ./... -v -parallel 8
-after_script: $GOPATH/bin/goveralls -service=travis-ci
+ 
+env:
+    CI_SERVICE=travis-ci
+script: travis_retry go test ./... -v -parallel 4
+after_success:
+- go get -v github.com/client9/misspell/cmd/misspell
+- go get -v github.com/fzipp/gocyclo
+- go get -v github.com/golang/lint/golint
+- go get -v github.com/gordonklaus/ineffassign
+- go get -v github.com/h12w/gosweep
+- go get -v github.com/mattn/goveralls
+- go get -v -u golang.org/x/tools/cmd/goimports
+- bash ${GOPATH}/src/github.com/h12w/gosweep/gosweep.sh
