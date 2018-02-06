@@ -24,21 +24,21 @@ complexity="${GOCYCLO_COMPLEXITY:-5}"
 locale="${MISSPELL_LOCALE:-US}"
 max_steps=12
 
-#for pkg in $(go list ./... | grep -v '/vendor/');
-#do
-#    dir="$GOPATH/src/$pkg"
-#    len="${#PWD}"
-#    dir_relative=".${dir:$len}"
+for pkg in $(go list ./... | grep -v '/vendor/');
+do
+    dir="$GOPATH/src/$pkg"
+    len="${#PWD}"
+    dir_relative=".${dir:$len}"
 
 
     # 1. test
-#    echo "go test $pkg ... (1/$max_steps)"
-#    go test -v -short -covermode=count -coverprofile="$dir_relative/profile.tmp" "$dir_relative"
-#    if [ -f "$dir_relative/profile.tmp" ]
-#    then
-#        cat "$dir_relative/profile.tmp" | tail -n +2 >> profile.cov
-#        rm "$dir_relative/profile.tmp"
-#    fi
+    echo "go test $pkg ... (1/$max_steps)"
+    go test -v -short -covermode=count -coverprofile="$dir_relative/profile.tmp" "$dir_relative"
+    if [ -f "$dir_relative/profile.tmp" ]
+    then
+        cat "$dir_relative/profile.tmp" | tail -n +2 >> profile.cov
+        rm "$dir_relative/profile.tmp"
+    fi
 
     # 2. fmt
 #    echo "gofmt $pkg ... (2/$max_steps)"
@@ -64,7 +64,7 @@ max_steps=12
 #    echo "skipped go test race $pkg ... (7/$max_steps)"
 #    #env GORACE="halt_on_error=1" go test -short -race $pkg
 
-#done
+done
 
 # 8. gocyclo
 #echo "gocyclo (8/$max_steps)"
