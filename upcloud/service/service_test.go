@@ -32,6 +32,7 @@ func TestMain(m *testing.M) {
 
 // Configures the test environment
 func setup() {
+    log.SetOutput(os.Stdout)
 	user, password := getCredentials()
 
 	c := client.New(user, password)
