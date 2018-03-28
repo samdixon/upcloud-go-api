@@ -734,7 +734,7 @@ func waitForStorageOnline(uuid string) {
 	_, err := svc.WaitForStorageState(&request.WaitForStorageStateRequest{
 		UUID:         uuid,
 		DesiredState: upcloud.StorageStateOnline,
-		Timeout:      time.Minute * 5,
+		Timeout:      time.Minute * 10,
 	})
 
 	handleError(err)
